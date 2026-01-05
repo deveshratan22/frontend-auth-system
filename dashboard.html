@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smart Auth | Dashboard</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <h1>Dashboard</h1>
+      <p>
+        You are now logged in.<br />
+        This area is protected and accessible only after authentication.
+      </p>
+    </div>
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="dashboard">
+      <h2>Welcome 👋</h2>
+
+      <p class="user-info">
+        <strong>Name:</strong> <span id="userName"></span><br />
+        <strong>Email:</strong> <span id="userEmail"></span>
+      </p>
+
+      <button id="logoutBtn">Logout</button>
+      <button id="deleteAccountBtn" class="danger"> Delete Profile </button>
+
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/auth/dashboard.js"></script>
+
+</body>
+</html>

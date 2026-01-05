@@ -122,10 +122,24 @@ form.addEventListener("submit", e => {
   setError(nameEl, nameError);
   if (nameError) hasError = true;
 
-  /* Email */
-  const emailError = validateEmail(emailEl.value);
-  setError(emailEl, emailError);
-  if (emailError) hasError = true;
+/* Email */
+const emailError = validateEmail(emailEl.value);
+setError(emailEl, emailError);
+if (emailError) {
+  hasError = true;
+} else {
+  // Duplicate email check (only if email is valid)
+  const existingUser = JSON.parse(localStorage.getItem("user"));
+  if (
+    existingUser &&
+    existingUser.email === emailEl.value.trim().toLowerCase()
+  ) {
+    setError(emailEl, "An account with this email already exists");
+    form.classList.add("shake");
+    setTimeout(() => form.classList.remove("shake"), 300);
+    return;
+  }
+}
 
   /* Password */
   const pwdError = validatePassword(pwdEl.value, emailEl.value);
@@ -146,9 +160,11 @@ form.addEventListener("submit", e => {
   }
 
   /* Terms */
-  if (!termsEl.checked) {
-    hasError = true;
-  }
+if (termsEl.checked) {
+  setError(termsEl, "");
+}
+
+
 
   /* Invalid → Shake animation */
   if (hasError) {
@@ -167,5 +183,10 @@ form.addEventListener("submit", e => {
   /* Clear temporary form memory */
   sessionStorage.removeItem("signupForm");
 
-  alert("Registered Successfully");
+// Mark user as logged in (auto-login after signup)
+sessionStorage.setItem("isLoggedIn", "true");
+
+// Redirect to dashboard
+window.location.href = "dashboard.html";
+
 });
